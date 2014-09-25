@@ -1,1 +1,15 @@
 language: java
+notifications:
+  hipchat:
+    rooms:
+      secure: QBmWAzibugRSaV61AQcakdAd3niYoVs8GSD3FTczIhKJBzFVxX4ypCX3/qAimpobQz0hqSRZEvcNmjPbWCCkG4BnZrSzCBnbxuhMVWPs9GHXtqKi/SAEk6A2oOlAXqS1xx7LjsFRb5PdUB7yW7EtU36X5HhynYLt9cRXsh50Stk=
+deploy:
+  provider: releases
+  api_key:
+    secure: eVxIZR0+ixty+dHi7miFPATYMv7L1yLleZp0Ud+82pmypxweZaoIg0iPw3nuU5WmiX4UAUYZo+U1uSyU8W4voV2F4zazuWZZSlAUPZoRtnzsD65fttlx7fK0Dkf6yC2WiHpgxCHBOyHRP2OcaVvoziORCa0GaRn+uZk3d81BEXU=
+  file: build/libs/xlr-xltest-plugin-1.0.jar
+  skip_cleanup: true
+  on:
+    all_branches: true
+    tags: true
+    repo: xebialabs-community/xlr-xltest-plugin
