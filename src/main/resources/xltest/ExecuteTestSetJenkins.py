@@ -41,7 +41,7 @@ else:
 # Checking and waiting until test is finished
 running = True
 while(running):
-    xltestResponse = XLRequest(pollingUri, 'GET', None, credentials['username'], credentials['password'], 'application/json').send()
+    xltestResponse = XLRequest(pollingUri, 'GET', None, credentials['username'], credentials['password'], 'text/event-stream; charset=UTF-8').send()
 
     if xltestResponse.status == RESPONSE_STATUS_CODE:
         data = xltestResponse.read()
