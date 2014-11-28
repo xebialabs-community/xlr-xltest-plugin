@@ -10,10 +10,13 @@ The xlr-xltest-plugin is a XL Release plugin that allows to start a test set on 
 
 ## Types ##
 
-+ ExecuteLocalTestSet
++ ExecuteTestSpecification (compatible with XL Test version 0.2.0)
+  * `testSpecificationName`
+  * `properties`
++ ExecuteLocalTestSet (compatible with XL Test version 0.1)
   * `testSetDefinition`
   * `testSetType`
-+ ExecuteJenkinsTestSet
++ ExecuteJenkinsTestSet (compatible with XL Test version 0.1)
   * `testSetDefinition`
   * `jobName`
   * `testSetType`
