@@ -36,7 +36,10 @@ if command:
     commandLine = command
 
 paramDict = {}
-propertyDict = dict(ast.literal_eval(properties))
+propertyDict = {}
+if properties:
+    propertyDict = dict(ast.literal_eval(properties))
+
 for parameter in parameters:
     name = parameter["name"]
     value = parameter["value"]
@@ -62,7 +65,7 @@ else:
 # Checking and waiting until test is finished
 running = True
 uri = "%s/test/%s" % (xltestUrl,taskId)
-time.sleep(5)
+time.sleep(10)
 while(running):
     xltestResponse = XLRequest(uri, 'GET', None, credentials['username'], credentials['password'], 'application/json').send()
 
