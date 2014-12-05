@@ -5,9 +5,11 @@
 #
 
 import sys, string, time
+import ast
 import com.xhaus.jyson.JysonCodec as json
 
 RESPONSE_STATUS_CODE = 200
+RESPONSE_SPECINFO_CODE = 422
 
 if xltestServer is None:
     print "No server provided."
@@ -17,9 +19,35 @@ xltestUrl = xltestServer['url']
 
 credentials = CredentialsFallback(xltestServer, username, password).getCredentials()
 
-xltestAPIUrl = '%s/execute/%s?%s' % (xltestUrl,testSpecificationName,properties)
+# Fetch test specification information
+xltestAPIUrl = '%s/execute/%s' % (xltestUrl,testSpecificationName)
+content = '{"id":"%s"}' % testSpecificationName
+xltestResponse = XLRequest(xltestAPIUrl, 'POST', content, credentials['username'], credentials['password'], 'application/json').send()
+if xltestResponse.status == RESPONSE_SPECINFO_CODE:
+    data = json.loads(xltestResponse.read())
+    commandLine = data["commandLine"]
+    parameters = data["parameters"]
+else:
+    print "Failed to fetch test specification information from XL Test"
+    xltestResponse.errorDump()
+    sys.exit(1)
 
-xltestResponse = XLRequest(xltestAPIUrl, 'GET', None, credentials['username'], credentials['password'], 'application/json').send()
+if command:
+    commandLine = command
+
+paramDict = {}
+propertyDict = dict(ast.literal_eval(properties))
+for parameter in parameters:
+    name = parameter["name"]
+    value = parameter["value"]
+    if name in propertyDict:
+        value = propertyDict[name]
+    paramDict[name] = value
+
+xltestAPIUrl = '%s/execute/%s' % (xltestUrl,testSpecificationName)
+content = '{"commandLine":%s,"parameters":%s}' % (json.dumps(commandLine), json.dumps(paramDict))
+print content
+xltestResponse = XLRequest(xltestAPIUrl, 'POST', content, credentials['username'], credentials['password'], 'application/json').send()
 
 taskId = None
 if xltestResponse.status == RESPONSE_STATUS_CODE:

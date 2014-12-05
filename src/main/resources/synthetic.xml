@@ -18,6 +18,7 @@
 
         <property name="testSpecificationName" category="input" label="Test Specification Name" required="true" />
         <property name="properties" category="input" default="" required="false" />
+        <property name="command" category="input" default="" required="false" />
 
         <property name="uri" category="output"/> 
     </type>
