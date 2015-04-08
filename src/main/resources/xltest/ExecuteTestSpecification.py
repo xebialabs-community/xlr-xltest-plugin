@@ -14,14 +14,14 @@ RESPONSE_SPECINFO_CODE = 422
 def pollTestSpecificationRun(xltestUrl, taskId, credentials):
     # Checking and waiting until test is finished
     running = True
-    uri = "%s/test/%s" % (xltestUrl,taskId)
+    uri = "%s/api/internal/test/%s" % (xltestUrl,taskId)
     time.sleep(10)
     while(running):
         xltestResponse = XLRequest(uri, 'GET', None, credentials['username'], credentials['password'], 'application/json').send()
-
         if xltestResponse.status == RESPONSE_STATUS_CODE:
             data = xltestResponse.read()
-            if "event: close" in data:
+            print "data = [%s]" % data
+            if "\"running\":false" in data:
                 running = False
                 print "XLTest execution finished on %s." % (uri)
                 if "\"qualification\":false" in data:
@@ -31,11 +31,12 @@ def pollTestSpecificationRun(xltestUrl, taskId, credentials):
                     print "The test run is qualified as: PASSED."
                 else:
                     print "Could not find qualification result"
+                    print "data = [%s]" % data
                     sys.exit(1)
             else:
                 time.sleep(2)
         else:
-            print "Failed to execute test on XL Test"
+            print "Failed to execute test on XL Test (HTTP Error %s)" % (xltestResponse.status)
             xltestResponse.errorDump()
             sys.exit(1)
 
@@ -53,7 +54,7 @@ xltestUrl = xltestServer['url']
 credentials = CredentialsFallback(xltestServer, username, password).getCredentials()
 
 # Fetch test specification information
-xltestAPIUrl = "%s/execute/%s" % (xltestUrl, testSpecificationName)
+xltestAPIUrl = "%s/api/internal/execute/%s" % (xltestUrl, testSpecificationName)
 content = '{"id":"%s"}' % testSpecificationName
 request = XLRequest(xltestAPIUrl, 'POST', content, credentials['username'], credentials['password'], 'application/json')
 xltestResponse = request.send()
@@ -87,9 +88,8 @@ for parameter in parameters:
         value = propertyDict[name]
     paramDict[name] = value
 
-xltestAPIUrl = "%s/execute/%s" % (xltestUrl, testSpecificationName)
+xltestAPIUrl = "%s/api/internal/execute/%s" % (xltestUrl, testSpecificationName)
 content = '{"commandLine":%s,"parameters":%s}' % (json.dumps(commandLine), json.dumps(paramDict))
-print content
 xltestResponse = XLRequest(xltestAPIUrl, 'POST', content, credentials['username'], credentials['password'], 'application/json').send()
 
 taskId = None
@@ -102,3 +102,4 @@ else:
     sys.exit(1)
 
 pollTestSpecificationRun(xltestUrl, taskId, credentials)
+
