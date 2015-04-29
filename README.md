@@ -13,6 +13,8 @@ The xlr-xltest-plugin is a XL Release plugin that allows to start a test set on 
 + ExecuteTestSpecification (compatible with XL Test version 0.2.0)
   * `testSpecificationName`
   * `properties`
++ CheckQualification - Check the lastest qualification results from a Test Specification
+  * 'testSpecificationName`
 + ExecuteLocalTestSet (compatible with XL Test version 0.1)
   * `testSetDefinition`
   * `testSetType`
