@@ -53,5 +53,17 @@
         <property name="uri" category="output"/> 
     </type>
 
+    <type type="xltest.CheckTestQualification" extends="xlrelease.PythonScript" description="Check the current qualification results for a test set">
+        <property name="scriptLocation" default="xltest/CheckQualification.py" hidden="true" />
+        <property name="iconLocation" default="xltest/xltest.png" hidden="true" />
+
+        <property name="xltestServer" category="input" label="Server" referenced-type="xltest.Server" kind="ci"/>
+        <property name="username" category="input" label="username" required="true" />
+        <property name="password" password="true" category="input" required="true" />
+
+        <property name="testSpecificationName" category="input" label="Test Specification Name" required="true" />
+
+    </type>
+
 	<type type="xltest.Server" extends="configuration.HttpConnection"/>
 </synthetic>
