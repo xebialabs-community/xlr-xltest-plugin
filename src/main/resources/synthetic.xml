@@ -10,7 +10,7 @@
 
     <type type="xltest.ExecuteTestSpecification" extends="xlrelease.PythonScript" description="Supports 0.2.0 release">
         <property name="scriptLocation" default="xltest/ExecuteTestSpecification.py" hidden="true" />
-        <property name="iconLocation" default="xltest/xltest.png" hidden="true" />
+        <property name="iconLocation" default="xltest/xltestview.png" hidden="true" />
 
         <property name="xltestServer" category="input" label="Server" referenced-type="xltest.Server" kind="ci"/>
         <property name="username" category="input" label="username" required="true" />
@@ -25,7 +25,7 @@
 
 	<type type="xltest.ExecuteLocalTestSet" extends="xlrelease.PythonScript" description="Supports 0.1 release">
         <property name="scriptLocation" default="xltest/ExecuteTestSet.py" hidden="true" />
-        <property name="iconLocation" default="xltest/xltest.png" hidden="true" />
+        <property name="iconLocation" default="xltest/xltestview.png" hidden="true" />
 
         <property name="xltestServer" category="input" label="Server" referenced-type="xltest.Server" kind="ci"/>
         <property name="username" category="input" label="username" required="true" />
@@ -39,7 +39,7 @@
 
     <type type="xltest.ExecuteJenkinsTestSet" extends="xlrelease.PythonScript" description="Supports 0.1 release">
         <property name="scriptLocation" default="xltest/ExecuteTestSetJenkins.py" hidden="true" />
-        <property name="iconLocation" default="xltest/xltest.png" hidden="true" />
+        <property name="iconLocation" default="xltest/xltestview.png" hidden="true" />
 
         <property name="xltestServer" category="input" label="Server" referenced-type="xltest.Server" kind="ci"/>
         <property name="username" category="input" label="username" required="true" />
@@ -55,7 +55,7 @@
 
     <type type="xltest.CheckTestQualification" extends="xlrelease.PythonScript" description="Check the current qualification results for a test set">
         <property name="scriptLocation" default="xltest/CheckQualification.py" hidden="true" />
-        <property name="iconLocation" default="xltest/xltest.png" hidden="true" />
+        <property name="iconLocation" default="xltest/xltestview.png" hidden="true" />
 
         <property name="xltestServer" category="input" label="Server" referenced-type="xltest.Server" kind="ci"/>
         <property name="username" category="input" label="username" required="true" />
