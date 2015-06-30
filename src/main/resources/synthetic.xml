@@ -8,11 +8,11 @@
 -->
 <synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <type type="xltest.ExecuteTestSpecification" extends="xlrelease.PythonScript" description="Supports 0.2.0 release">
-        <property name="scriptLocation" default="xltest/ExecuteTestSpecification.py" hidden="true" />
-        <property name="iconLocation" default="xltest/xltestview.png" hidden="true" />
+    <type type="xltestview.ExecuteTestSpecification" extends="xlrelease.PythonScript" description="Supports 0.2.0 release">
+        <property name="scriptLocation" default="xltestview/ExecuteTestSpecification.py" hidden="true" />
+        <property name="iconLocation" default="xltestview/xltestview.png" hidden="true" />
 
-        <property name="xltestServer" category="input" label="Server" referenced-type="xltest.Server" kind="ci"/>
+        <property name="xltestServer" category="input" label="Server" referenced-type="xltestview.Server" kind="ci"/>
         <property name="username" category="input" label="username" required="true" />
         <property name="password" password="true" category="input" required="true" />
 
@@ -23,41 +23,11 @@
         <property name="uri" category="output"/> 
     </type>
 
-	<type type="xltest.ExecuteLocalTestSet" extends="xlrelease.PythonScript" description="Supports 0.1 release">
-        <property name="scriptLocation" default="xltest/ExecuteTestSet.py" hidden="true" />
-        <property name="iconLocation" default="xltest/xltestview.png" hidden="true" />
+    <type type="xltestview.CheckTestQualification" extends="xlrelease.PythonScript" description="Check the current qualification results for a test set">
+        <property name="scriptLocation" default="xltestview/CheckQualification.py" hidden="true" />
+        <property name="iconLocation" default="xltestview/xltestview.png" hidden="true" />
 
-        <property name="xltestServer" category="input" label="Server" referenced-type="xltest.Server" kind="ci"/>
-        <property name="username" category="input" label="username" required="true" />
-        <property name="password" password="true" category="input" required="true" />
-
-        <property name="testSetDefinition" category="input" label="Test Set Definition" required="true" />
-        <property name="testSetType" category="input" default="xltest.LocalTestRun" required="true" />
-
-        <property name="uri" category="output"/> 
-    </type>
-
-    <type type="xltest.ExecuteJenkinsTestSet" extends="xlrelease.PythonScript" description="Supports 0.1 release">
-        <property name="scriptLocation" default="xltest/ExecuteTestSetJenkins.py" hidden="true" />
-        <property name="iconLocation" default="xltest/xltestview.png" hidden="true" />
-
-        <property name="xltestServer" category="input" label="Server" referenced-type="xltest.Server" kind="ci"/>
-        <property name="username" category="input" label="username" required="true" />
-        <property name="password" password="true" category="input" required="true" />
-
-        <property name="testSetDefinition" category="input" label="Test Set Definition" required="true" />
-        <property name="jobName" category="input" label="Jenkins Job Name" default="" required="true" />
-
-        <property name="testSetType" category="input" default="generic.JenkinsTestRun" required="true" />
-
-        <property name="uri" category="output"/> 
-    </type>
-
-    <type type="xltest.CheckTestQualification" extends="xlrelease.PythonScript" description="Check the current qualification results for a test set">
-        <property name="scriptLocation" default="xltest/CheckQualification.py" hidden="true" />
-        <property name="iconLocation" default="xltest/xltestview.png" hidden="true" />
-
-        <property name="xltestServer" category="input" label="Server" referenced-type="xltest.Server" kind="ci"/>
+        <property name="xltestServer" category="input" label="Server" referenced-type="xltestview.Server" kind="ci"/>
         <property name="username" category="input" label="username" required="true" />
         <property name="password" password="true" category="input" required="true" />
 
@@ -65,5 +35,5 @@
 
     </type>
 
-	<type type="xltest.Server" extends="configuration.HttpConnection"/>
+	<type type="xltestview.Server" extends="configuration.HttpConnection"/>
 </synthetic>
