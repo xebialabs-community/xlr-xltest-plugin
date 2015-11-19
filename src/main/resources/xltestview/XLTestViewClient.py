@@ -53,6 +53,7 @@ class XLTestViewClient(object):
             return True
         else:
             print 'TestSpec %s qualified as FAILED' % test_specification_name
+            print 'Reason: *%s*' % result['message']
             return False
 
     def is_test_specification_running(self, task_id):
