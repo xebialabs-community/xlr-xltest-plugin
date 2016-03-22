@@ -18,7 +18,7 @@ xlt_client.check_xltestview_version()
 task_id = xlt_client.execute_test_specification(testSpecificationName)
 
 # Polling
-time.sleep(20)
+time.sleep(10)
 while xlt_client.is_test_specification_running(task_id):
     time.sleep(10)
 

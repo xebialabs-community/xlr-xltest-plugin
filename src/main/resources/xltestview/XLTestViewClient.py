@@ -6,11 +6,11 @@
 
 import sys, time, ast, re
 import com.xhaus.jyson.JysonCodec as json
-from httputil.HttpRequest import HttpRequest
+from xlrelease.HttpRequest import HttpRequest
 
 class XLTestViewClient(object):
     def __init__(self, http_connection, username=None, password=None):
-        self.httpRequest = HttpRequest(http_connection, username, password)
+        self.http_request = HttpRequest(http_connection, username, password)
 
     @staticmethod
     def create_client(http_connection, username=None, password=None):
@@ -24,9 +24,9 @@ class XLTestViewClient(object):
 
     def check_xltestview_version(self):
         xltestview_api_url = "/api/v1/info"
-        info_response = self.httpRequest.get(xltestview_api_url, contentType='application/json')
+        info_response = self.http_request.get(xltestview_api_url, contentType='application/json')
         result = json.loads(info_response.getResponse())
-        if self.cmp_version(result['version'],'1.2.0') < 0:
+        if self.cmp_version(result['version'],'1.4.0') < 0:
             print "Version %s not supported." % result['version']
             sys.exit(1)
         else:
@@ -35,7 +35,7 @@ class XLTestViewClient(object):
     def get_test_specification_id(self, test_specification_name):
         # Fetch test specification information
         xltestview_api_url = "/api/internal/testspecifications"
-        test_specifications_response = self.httpRequest.get(xltestview_api_url, contentType='application/json')
+        test_specifications_response = self.http_request.get(xltestview_api_url, contentType='application/json')
         data = json.loads(test_specifications_response.getResponse())
         if data is not None:
             for test_spec in data:
@@ -46,7 +46,7 @@ class XLTestViewClient(object):
     def get_test_specification_qualification(self, test_specification_name):
         test_specification_id = self.get_test_specification_id(test_specification_name)
         xltestview_api_url = "/api/v1/qualifications?testSpecification=%s" % test_specification_id
-        test_specification_response = self.httpRequest.get(xltestview_api_url, contentType='application/json')
+        test_specification_response = self.http_request.get(xltestview_api_url, contentType='application/json')
         result = json.loads(test_specification_response.getResponse())
         if result['result']:
             print 'TestSpec %s qualified as PASSED' % test_specification_name
@@ -56,12 +56,15 @@ class XLTestViewClient(object):
             print 'Reason: *%s*' % result['message']
             return False
 
-    def is_test_specification_running(self, task_id):
+    def is_test_specification_running(self, test_specification_name):
         # Checking and waiting until test is finished
-        xltestview_api_url = "/api/internal/test/%s" % task_id
-        test_specification_response = self.httpRequest.get(xltestview_api_url, contentType='application/json')
-        result = json.loads(test_specification_response.getResponse())
-        if result['running']:
+        test_specification_id = self.get_test_specification_id(test_specification_name)
+        xltestview_api_url = "/api/internal/projects/%s/status" % test_specification_id
+        headers = {'Accept': 'text/event-stream', 'Content-Type': ''}
+        test_specification_response = self.http_request.get(xltestview_api_url, headers = headers)
+        if not test_specification_response.isSuccessful():
+            raise Exception("Failed to get test specification state. Server return [%s], with content [%s]" % (test_specification_response.status, test_specification_response.response))
+        if 'running' in test_specification_response.getResponse():
             print "Test Specification is running"
             return True
         else:
@@ -72,6 +75,6 @@ class XLTestViewClient(object):
         test_specification_id = self.get_test_specification_id(test_specification_name)
         xltestview_api_url = "/api/internal/execute/%s" % test_specification_id
         content = '{"id":"%s"}' % test_specification_id
-        test_specification_response = self.httpRequest.post(xltestview_api_url, content, contentType='application/json')
+        test_specification_response = self.http_request.post(xltestview_api_url, content, contentType='application/json')
         result = json.loads(test_specification_response.getResponse())
         return result['taskId']
