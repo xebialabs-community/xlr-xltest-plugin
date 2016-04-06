@@ -15,14 +15,14 @@ xlt_client = XLTestViewClientUtil.create_XL_TestView_client(xltestServer, userna
 
 xlt_client.check_xltestview_version()
 
-task_id = xlt_client.execute_test_specification(testSpecificationName)
+task_id = xlt_client.execute_test_specification(testSpecificationName, projectName)
 
 # Polling
 time.sleep(10)
 while xlt_client.is_test_specification_running(task_id):
     time.sleep(10)
 
-test_spec_qualification = xlt_client.get_test_specification_qualification(testSpecificationName)
+test_spec_qualification = xlt_client.get_test_specification_qualification(testSpecificationName, projectName)
 
 if test_spec_qualification:
     sys.exit(0)

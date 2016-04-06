@@ -8,31 +8,28 @@
 -->
 <synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <type type="xltestview.ExecuteTestSpecification" extends="xlrelease.PythonScript" description="Supports 0.2.0 release">
-        <property name="scriptLocation" default="xltestview/ExecuteTestSpecification.py" hidden="true" />
+    <type type="xltestview.Task" extends="xlrelease.PythonScript" virtual="true">
         <property name="iconLocation" default="xltestview/xltestview.png" hidden="true" />
 
         <property name="xltestServer" category="input" label="Server" referenced-type="xltestview.Server" kind="ci"/>
         <property name="username" category="input" label="username" required="true" />
         <property name="password" password="true" category="input" required="true" />
 
+        <property name="projectName" category="input" label="Project Name" required="true" />
         <property name="testSpecificationName" category="input" label="Test Specification Name" required="true" />
+    </type>
+
+    <type type="xltestview.ExecuteTestSpecification" extends="xltestview.Task" description="Supports 0.2.0 release">
+        <property name="scriptLocation" default="xltestview/ExecuteTestSpecification.py" hidden="true" />
+
         <property name="properties" category="input" default="" required="false" />
         <property name="command" category="input" default="" required="false" />
 
         <property name="uri" category="output"/> 
     </type>
 
-    <type type="xltestview.CheckTestQualification" extends="xlrelease.PythonScript" description="Check the current qualification results for a test set">
+    <type type="xltestview.CheckTestQualification" extends="xltestview.Task" description="Check the current qualification results for a test set">
         <property name="scriptLocation" default="xltestview/CheckQualification.py" hidden="true" />
-        <property name="iconLocation" default="xltestview/xltestview.png" hidden="true" />
-
-        <property name="xltestServer" category="input" label="Server" referenced-type="xltestview.Server" kind="ci"/>
-        <property name="username" category="input" label="username" required="true" />
-        <property name="password" password="true" category="input" required="true" />
-
-        <property name="testSpecificationName" category="input" label="Test Specification Name" required="true" />
-
     </type>
 
 	<type type="xltestview.Server" extends="configuration.HttpConnection"/>

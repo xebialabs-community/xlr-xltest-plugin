@@ -29,11 +29,14 @@ Any release named `xl-test` is used for any version of XL TestView previous to `
 Any release named `xl-testview` is used for any version of XL TestView `1.2.0+`
 
 Starting from version 1.4.0 you need XLR 4.8.0+ to use the plugin
+Starting from version 2.0.0 you also need to specify the `projectName`
 
 ## Types ##
 
-+ ExecuteTestSpecification (compatible with XL TestView version 1.2.0+)
++ ExecuteTestSpecification (compatible with XL TestView version 1.4.2+)
   * `testSpecificationName`
+  * `projectName`
   * `properties`
 + CheckQualification - Check the latest qualification results from a Test Specification
   * `testSpecificationName`
+  * `projectName`

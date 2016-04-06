@@ -32,9 +32,22 @@ class XLTestViewClient(object):
         else:
             print "Version %s supported." % result['version']
 
-    def get_test_specification_id(self, test_specification_name):
+    def get_project_id(self, project_name):
+        # Fetch project information
+        xltestview_api_url = "/api/v1/projects?title=%s" % project_name
+        project_response = self.http_request.get(xltestview_api_url, contentType='application/json')
+        data = json.loads(project_response.getResponse())
+        if data is not None:
+            for project in data:
+                if project is not None and project['title'].startswith(project_name):
+                    return project['id']
+        return None
+
+
+    def get_test_specification_id(self, test_specification_name, project_name):
         # Fetch test specification information
-        xltestview_api_url = "/api/internal/testspecifications"
+        project_id = self.get_project_id(project_name)
+        xltestview_api_url = "/api/internal/projects/%s/testspecifications" % project_id
         test_specifications_response = self.http_request.get(xltestview_api_url, contentType='application/json')
         data = json.loads(test_specifications_response.getResponse())
         if data is not None:
@@ -43,8 +56,8 @@ class XLTestViewClient(object):
                     return test_spec['name']
         return None
 
-    def get_test_specification_qualification(self, test_specification_name):
-        test_specification_id = self.get_test_specification_id(test_specification_name)
+    def get_test_specification_qualification(self, test_specification_name, project_name):
+        test_specification_id = self.get_test_specification_id(test_specification_name, project_name)
         xltestview_api_url = "/api/v1/qualifications?testSpecification=%s" % test_specification_id
         test_specification_response = self.http_request.get(xltestview_api_url, contentType='application/json')
         result = json.loads(test_specification_response.getResponse())
@@ -56,9 +69,9 @@ class XLTestViewClient(object):
             print 'Reason: *%s*' % result['message']
             return False
 
-    def is_test_specification_running(self, test_specification_name):
+    def is_test_specification_running(self, test_specification_name, project_name):
         # Checking and waiting until test is finished
-        test_specification_id = self.get_test_specification_id(test_specification_name)
+        test_specification_id = self.get_test_specification_id(test_specification_name, project_name)
         xltestview_api_url = "/api/internal/projects/%s/status" % test_specification_id
         headers = {'Accept': 'text/event-stream', 'Content-Type': ''}
         test_specification_response = self.http_request.get(xltestview_api_url, headers = headers)
@@ -71,8 +84,8 @@ class XLTestViewClient(object):
             print "Test Specification is not running"
             return False
 
-    def execute_test_specification(self, test_specification_name):
-        test_specification_id = self.get_test_specification_id(test_specification_name)
+    def execute_test_specification(self, test_specification_name, project_name):
+        test_specification_id = self.get_test_specification_id(test_specification_name, project_name)
         xltestview_api_url = "/api/internal/execute/%s" % test_specification_id
         content = '{"id":"%s"}' % test_specification_id
         test_specification_response = self.http_request.post(xltestview_api_url, content, contentType='application/json')

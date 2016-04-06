@@ -16,7 +16,7 @@ xlt_client = XLTestViewClientUtil.create_XL_TestView_client(xltestServer, userna
 xlt_client.check_xltestview_version()
 
 
-test_spec_qualification = xlt_client.get_test_specification_qualification(testSpecificationName)
+test_spec_qualification = xlt_client.get_test_specification_qualification(testSpecificationName, projectName)
 
 if test_spec_qualification:
     sys.exit(0)
