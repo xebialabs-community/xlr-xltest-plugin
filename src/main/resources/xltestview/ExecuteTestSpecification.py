@@ -22,9 +22,9 @@ time.sleep(10)
 while xlt_client.is_test_specification_running(task_id):
     time.sleep(10)
 
-test_spec_qualification = xlt_client.get_test_specification_qualification(testSpecificationName, projectName)
+qualification = xlt_client.get_test_specification_qualification(testSpecificationName, projectName)
 
-if test_spec_qualification:
+if qualification:
     sys.exit(0)
 else:
     sys.exit(1)

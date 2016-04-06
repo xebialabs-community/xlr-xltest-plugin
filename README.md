@@ -34,9 +34,11 @@ Starting from version 2.0.0 you also need to specify the `projectName`
 ## Types ##
 
 + ExecuteTestSpecification (compatible with XL TestView version 1.4.2+)
-  * `testSpecificationName`
-  * `projectName`
-  * `properties`
+  * `testSpecificationName`: (input) Test Specification Name
+  * `projectName`: (input) Project Name
+  * `properties`: (input)
+  * `qualification`: (output) Qualification result
 + CheckQualification - Check the latest qualification results from a Test Specification
-  * `testSpecificationName`
-  * `projectName`
+  * `testSpecificationName`: (input) Test Specification Name
+  * `projectName`: (input) Project Name
+  * `qualification`: (output) Qualification result

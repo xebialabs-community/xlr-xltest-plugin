@@ -17,6 +17,7 @@
 
         <property name="projectName" category="input" label="Project Name" required="true" />
         <property name="testSpecificationName" category="input" label="Test Specification Name" required="true" />
+        <property name="qualification" category="output" label="Qualification result" required="false" kind="boolean" />
     </type>
 
     <type type="xltestview.ExecuteTestSpecification" extends="xltestview.Task" description="Supports 0.2.0 release">
