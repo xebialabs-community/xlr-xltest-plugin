@@ -7,7 +7,7 @@ deploy:
   provider: releases
   api_key:
     secure: eVxIZR0+ixty+dHi7miFPATYMv7L1yLleZp0Ud+82pmypxweZaoIg0iPw3nuU5WmiX4UAUYZo+U1uSyU8W4voV2F4zazuWZZSlAUPZoRtnzsD65fttlx7fK0Dkf6yC2WiHpgxCHBOyHRP2OcaVvoziORCa0GaRn+uZk3d81BEXU=
-  file: build/libs/xlr-xltestview-plugin-2.1.0.jar
+  file: build/libs/xlr-xltestview-plugin-2.1.1.jar
   skip_cleanup: true
   on:
     all_branches: true

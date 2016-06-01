@@ -19,7 +19,7 @@ task_id = xlt_client.execute_test_specification(testSpecificationName, projectNa
 
 # Polling
 time.sleep(10)
-while xlt_client.is_test_specification_running(task_id):
+while xlt_client.is_test_specification_running(testSpecificationName, projectName):
     time.sleep(10)
 
 qualification = xlt_client.get_test_specification_qualification(testSpecificationName, projectName)
