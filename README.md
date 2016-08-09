@@ -22,6 +22,9 @@ See the **XL Release Reference Manual** for background information on XL Release
 
 The xlr-xltestview-plugin is a XL Release plugin that allows to start a test set on XL TestView.
 
+
+![image](images/ReleaseExample.png)
+
 # Installation #
 
 Starting from version 1.2.0 the version numbering has changed and is now following the versioning from XL TestView.
@@ -38,7 +41,9 @@ Starting from version 2.0.0 you also need to specify the `projectName`
   * `projectName`: (input) Project Name
   * `properties`: (input)
   * `qualification`: (output) Qualification result
+  ![image](images/ExecuteTestSpecification.png)
 + CheckQualification - Check the latest qualification results from a Test Specification
   * `testSpecificationName`: (input) Test Specification Name
   * `projectName`: (input) Project Name
   * `qualification`: (output) Qualification result
+  ![image](images/CheckQualification.png)
